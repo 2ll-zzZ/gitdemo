@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD com.example.Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.UserMapper">
+	<resultMap type="com.example.demo.entity.User" id="result">
+		<result property="name" column="name"/>
+		<result property="password" column="password"/>
+		<result property="number" column="number"/>
+	</resultMap>
+	
+	<select id="selectUser" resultMap="result">
+		select * from user
+	</select>
+	
+	<insert id="insertUser" parameterType="com.example.demo.entity.User"
+		keyProperty="id" useGeneratedKeys="true">
+	    INSERT INTO user
+		(
+		id,name,password,number
+		)
+		VALUES (
+		#{id},
+		#{name, jdbcType=VARCHAR},
+		#{password, jdbcType=VARCHAR},
+		#{number}
+		)
+	</insert>
+	
+	<select id="selectbyname" resultMap="result">
+		select * from user where name=#{name}
+	</select>
+	
+	<delete id="deletebyname" parameterType="String">
+		delete from user where name=#{name}
+	</delete>
+	
+	<update id="updatebyname" parameterType="String">
+	 	update user set user.number=#{number} where user.name=#{name}
+	</update>
+</mapper>
